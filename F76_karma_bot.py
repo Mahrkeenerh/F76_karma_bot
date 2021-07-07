@@ -63,7 +63,7 @@ while True:
                 if "u/" in lowercase_body and "karma" in lowercase_body:
                     user = get_user(lowercase_body)
 
-                    if user == "u/" + str(comment.author):
+                    if user == "u/" + str(comment.author).lower():
                         continue
 
                     if user not in record and "karma" in lowercase_body:
