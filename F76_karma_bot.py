@@ -48,6 +48,7 @@ def save():
 
 
 print("Starting")
+load()
 
 
 while True:
