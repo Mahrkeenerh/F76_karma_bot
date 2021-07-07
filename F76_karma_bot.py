@@ -63,18 +63,15 @@ while True:
                 if "u/" in lowercase_body and "karma" in lowercase_body:
                     user = get_user(lowercase_body)
 
-                    if user == "u/" + str(comment.author).lower():
-                        continue
-
                     if user not in record and "karma" in lowercase_body:
                         record[user] = 0
 
-                    if "+karma" in lowercase_body:
+                    if user != "u/" + str(comment.author).lower() and "+karma" in lowercase_body:
                         record[user] += 1
                         comment.reply("%s has successfully added karma to %s, they now have: %d karma" % ("u/" + str(comment.author).lower(), user, record[user]))
                         save()
                     
-                    if "-karma" in lowercase_body:
+                    if user != "u/" + str(comment.author).lower() and "-karma" in lowercase_body:
                         record[user] -= 1
                         comment.reply("%s has successfully subtracted karma from %s, they now have: %d karma" % ("u/" + str(comment.author).lower(), user, record[user]))
                         save()
