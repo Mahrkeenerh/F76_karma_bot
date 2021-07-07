@@ -71,12 +71,12 @@ while True:
 
                     if "+karma" in lowercase_body:
                         record[user] += 1
-                        comment.reply("You've successfully added karma to %s, they now have: %d karma" % (user, record[user]))
+                        comment.reply("%s has successfully added karma to %s, they now have: %d karma" % ("u/" + str(comment.author).lower(), user, record[user]))
                         save()
                     
                     if "-karma" in lowercase_body:
                         record[user] -= 1
-                        comment.reply("You've successfully subtracted karma from %s, they now have: %d karma" % (user, record[user]))
+                        comment.reply("%s has successfully subtracted karma from %s, they now have: %d karma" % ("u/" + str(comment.author).lower(), user, record[user]))
                         save()
 
                     if "?karma" in lowercase_body:
