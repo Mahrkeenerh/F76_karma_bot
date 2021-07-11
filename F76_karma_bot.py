@@ -1,6 +1,20 @@
 import praw, datetime, sys, json, traceback
 from time import sleep
 
+from prawcore import auth
+
+class User():
+
+    def __init__(self):
+        self.trade = 0
+        self.giveaway = 0
+        self.up_posts = {}
+        self.down_posts = {}
+
+# posts
+# post id: [user, user, user]
+
+
 with open("config.json") as config_file:
     config_json = json.load(config_file)
 
@@ -22,7 +36,7 @@ start_time = datetime.datetime.now()
 record = {}
 
 
-def get_user(text):
+def get_target(text):
 
     for word in text.split():
         if "u/" in word:
@@ -34,8 +48,17 @@ def load():
 
     global record
 
+    record = {}
+
     with open("record.json") as json_file:
-        record = json.load(json_file)
+        in_dict = json.load(json_file)
+
+        for user in in_dict:
+            record[user] = User()
+            record[user].trade = in_dict[user][0]
+            record[user].giveaway = in_dict[user][1]
+            record[user].up_posts = in_dict[user][2]
+            record[user].down_posts = in_dict[user][3]
 
 
 # save lists
@@ -43,8 +66,10 @@ def save():
 
     global record
 
+    out_dict = {user: [record[user].trade, record[user].giveaway, record[user].up_posts, record[user].down_posts] for user in record}
+
     with open("record.json", "w") as json_file:
-        json.dump(record, json_file)
+        json.dump(out_dict, json_file)
 
 
 print("Starting")
@@ -60,25 +85,67 @@ while True:
             if comment_time > start_time:
                 lowercase_body = comment.body.lower()
 
-                if "u/" in lowercase_body and "karma" in lowercase_body:
-                    user = get_user(lowercase_body)
+                if "u/" in lowercase_body:
+                    target = get_target(lowercase_body)
+                    author = "u/" + str(comment.author).lower()
+                    post_id = comment.submission.id
 
-                    if user not in record and "karma" in lowercase_body:
-                        record[user] = 0
+                    # Add both users to records
+                    if target not in record:
+                        record[target] = User()
 
-                    if user != "u/" + str(comment.author).lower() and "+karma" in lowercase_body:
-                        record[user] += 1
-                        comment.reply("%s has successfully added karma to %s, they now have: %d karma" % ("u/" + str(comment.author).lower(), user, record[user]))
+                    if author not in record:
+                        record[author] = User()
+
+                    # User trying to change their own karma
+                    if target == author:
+                        if "+trade" in lowercase_body or "-trade" in lowercase_body or "+giveaway" in lowercase_body or "-giveaway" in lowercase_body:
+                            comment.reply("You can't alter your own karma.")
+                            continue
+
+                    # Trying to add karma
+                    if "+trade" in lowercase_body or "+giveaway" in lowercase_body:
+                        if post_id not in record[author].up_posts:
+                            record[author].up_posts[post_id] = []
+
+                        if target in record[author].up_posts[post_id]:
+                            comment.reply("You can only add karma to one user under one post once.")
+                            continue
+
+                        if "+trade" in lowercase_body:
+                            record[target].trade += 1
+                        else:
+                            record[target].giveaway += 1
+
+                        record[author].up_posts[post_id].append(target)
+                        
+                        comment.reply("%s has successfully added karma to %s.\n\nThey now have %d trade and %d giveaway karma." % (author, target, record[target].trade, record[target].giveaway))
                         save()
-                    
-                    if user != "u/" + str(comment.author).lower() and "-karma" in lowercase_body:
-                        record[user] -= 1
-                        comment.reply("%s has successfully subtracted karma from %s, they now have: %d karma" % ("u/" + str(comment.author).lower(), user, record[user]))
-                        save()
+                        continue
 
+                    # Trying to subtract karma
+                    if "-trade" in lowercase_body or "-giveaway" in lowercase_body:
+                        if post_id not in record[author].down_posts:
+                            record[author].down_posts[post_id] = []
+
+                        if target in record[author].down_posts[post_id]:
+                            comment.reply("You can only subtract karma from one user under one post once.")
+                            continue
+
+                        if "-trade" in lowercase_body:
+                            record[target].trade -= 1
+                        else:
+                            record[target].giveaway -= 1
+
+                        record[author].down_posts[post_id].append(target)
+                        
+                        comment.reply("%s has successfully subtracted karma from %s.\n\nThey now have %d trade and %d giveaway karma." % (author, target, record[target].trade, record[target].giveaway))
+                        save()
+                        continue
+
+                    # info karma
                     if "?karma" in lowercase_body:
-                        comment.reply("%s has: %d karma" % (user, record[user]))
-                        save()
+                        comment.reply("%s has %d trade and %d giveaway karma." % (target, record[target].trade, record[target].giveaway))
 
     # An error - sleep and hope it works now
     except:
