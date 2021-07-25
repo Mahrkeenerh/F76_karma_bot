@@ -86,7 +86,7 @@ while True:
                 lowercase_body = comment.body.lower()
 
                 if "!courier" in lowercase_body:
-                    comment.reply("u/" + str(comment.author) + " has requested a courier.\n\nCalling u/astrokurt u/BrokenSpartan23 u/Davisparker8 u/DunnDunnas u/fast-sparrow u/GODisAWESOME777 u/Huey9670 u/Lopsided-Cry5134 u/NoodleShopKing u/SASCAT666 u/Savvy_Untapper u/silent_neo_27 u/SSD002 u/Themudget u/Viking122584 u/vZ_Bigboy.")
+                    comment.reply("u/" + str(comment.author) + " has requested a courier.\n\nCalling %s ." % ("u/astrokurt u/BrokenSpartan23 u/Davisparker8 u/DunnDunnas u/fast-sparrow u/GODisAWESOME777 u/Huey9670 u/Lopsided-Cry5134 u/NoodleShopKing u/SASCAT666 u/Savvy_Untapper u/silent_neo_27 u/SSD002 u/Themudget u/Viking122584 u/vZ_Bigboy"))
 
                 if "u/" in lowercase_body:
                     target = get_target(lowercase_body)
