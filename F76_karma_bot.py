@@ -90,7 +90,7 @@ while True:
 
                     for courier in ["u/astrokurt", "u/BrokenSpartan23", "u/Davisparker8", "u/DunnDunnas", "u/fast-sparrow", "u/GODisAWESOME777", "u/Huey9670", "u/Lopsided-Cry5134", "u/NoodleShopKing", "u/SASCAT666", "u/Savvy_Untapper", "u/silent_neo_27", "u/SSD002", "u/Themudget", "u/Viking122584", "u/vZ_Bigboy"]:
                         try:
-                            reddit.redditor(courier).message("Hey, u/" + str(comment.author) + " has requested a courier.\n\nLink to comment: " + comment.permalink + "\n\nIf you decide to take it on, please claim it by commenting under their request.")
+                            reddit.redditor(courier).message("Courier request", "Hey, u/" + str(comment.author) + " has requested a courier.\n\nLink to comment: " + comment.permalink + "\n\nIf you decide to take it on, please claim it by commenting under their request.")
 
                         except:
                             pass
