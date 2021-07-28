@@ -76,7 +76,7 @@ def save():
 # notify all couriers
 def notify_couriers():
 
-    couriers = ["u/astrokurt", "u/BrokenSpartan23", "u/Davisparker8", "u/DunnDunnas", "u/fast-sparrow", "u/GODisAWESOME777", "u/Huey9670", "u/Lopsided-Cry5134", "u/NoodleShopKing", "u/SASCAT666", "u/Savvy_Untapper", "u/silent_neo_27", "u/SSD002", "u/Themudget", "u/Viking122584", "u/vZ_Bigboy"]
+    couriers = ["astrokurt", "BrokenSpartan23", "Davisparker8", "DunnDunnas", "fast-sparrow", "GODisAWESOME777", "Huey9670", "Lopsided-Cry5134", "NoodleShopKing", "SASCAT666", "Savvy_Untapper", "silent_neo_27", "SSD002", "Themudget", "Viking122584", "vZ_Bigboy"]
 
     while couriers:
         try:
@@ -85,13 +85,15 @@ def notify_couriers():
 
         except:
             if "RATELIMIT" in "".join(traceback.format_exception(*sys.exc_info())):
+                print("Ratelimit,", len(couriers))
                 sleep(60)
 
             else:
-                del couriers[0]
                 print("\n", datetime.datetime.now())
                 print("En error while posting a dm.")
+                print("Courier:", couriers[0])
                 print(traceback.print_exception(*sys.exc_info()))
+                del couriers[0]
 
 
 print("Starting")
