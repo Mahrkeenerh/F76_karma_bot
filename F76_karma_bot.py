@@ -94,7 +94,9 @@ while True:
                             sleep(10)
                             
                         except:
-                            pass
+                            print("\n", datetime.datetime.now())
+                            print("En error while posting a dm.")
+                            print(traceback.print_exception(*sys.exc_info()))
 
                 if "u/" in lowercase_body:
                     target = get_target(lowercase_body)
