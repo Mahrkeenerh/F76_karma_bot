@@ -1,5 +1,6 @@
 import praw, datetime, sys, json, traceback
 from time import sleep
+from threading import Thread
 
 from prawcore import auth
 
@@ -72,6 +73,27 @@ def save():
         json.dump(out_dict, json_file)
 
 
+# notify all couriers
+def notify_couriers():
+
+    couriers = ["u/astrokurt", "u/BrokenSpartan23", "u/Davisparker8", "u/DunnDunnas", "u/fast-sparrow", "u/GODisAWESOME777", "u/Huey9670", "u/Lopsided-Cry5134", "u/NoodleShopKing", "u/SASCAT666", "u/Savvy_Untapper", "u/silent_neo_27", "u/SSD002", "u/Themudget", "u/Viking122584", "u/vZ_Bigboy"]
+
+    while couriers:
+        try:
+            reddit.redditor(couriers[0]).message("Courier request", "Hey, u/" + str(comment.author) + " has requested a courier.\n\nLink to comment: " + comment.permalink + "\n\nIf you decide to take it on, please claim it by commenting under their request.")
+            del couriers[0]
+
+        except:
+            if "RATELIMIT" in "".join(traceback.format_exception(*sys.exc_info())):
+                sleep(60)
+
+            else:
+                del couriers[0]
+                print("\n", datetime.datetime.now())
+                print("En error while posting a dm.")
+                print(traceback.print_exception(*sys.exc_info()))
+
+
 print("Starting")
 load()
 
@@ -88,14 +110,7 @@ while True:
                 if "!courier" in lowercase_body:
                     comment.reply("u/" + str(comment.author) + " has requested a courier.\n\nSomebody from this list will message you: u/astrokurt u/BrokenSpartan23 u/Davisparker8 u/DunnDunnas u/fast-sparrow u/GODisAWESOME777 u/Huey9670 u/Lopsided-Cry5134 u/NoodleShopKing u/SASCAT666 u/Savvy_Untapper u/silent_neo_27 u/SSD002 u/Themudget u/Viking122584 u/vZ_Bigboy")
 
-                    for courier in ["u/astrokurt", "u/BrokenSpartan23", "u/Davisparker8", "u/DunnDunnas", "u/fast-sparrow", "u/GODisAWESOME777", "u/Huey9670", "u/Lopsided-Cry5134", "u/NoodleShopKing", "u/SASCAT666", "u/Savvy_Untapper", "u/silent_neo_27", "u/SSD002", "u/Themudget", "u/Viking122584", "u/vZ_Bigboy"]:
-                        try:
-                            reddit.redditor(courier).message("Courier request [" + courier + "]", "Hey, u/" + str(comment.author) + " has requested a courier.\n\nLink to comment: " + comment.permalink + "\n\nIf you decide to take it on, please claim it by commenting under their request.")
-                            
-                        except:
-                            print("\n", datetime.datetime.now())
-                            print("En error while posting a dm.")
-                            print(traceback.print_exception(*sys.exc_info()))
+                    Thread(target=notify_couriers, args=()).start()
 
                 if "u/" in lowercase_body:
                     target = get_target(lowercase_body)
