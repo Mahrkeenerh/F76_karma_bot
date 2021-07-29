@@ -76,7 +76,7 @@ def save():
 # notify all couriers
 def notify_couriers():
 
-    couriers = ["astrokurt", "BrokenSpartan23", "Davisparker8", "DunnDunnas", "fast-sparrow", "GODisAWESOME777", "Huey9670", "Lopsided-Cry5134", "NoodleShopKing", "SASCAT666", "Savvy_Untapper", "silent_neo_27", "SSD002", "Themudget", "Viking122584", "vZ_Bigboy"]
+    couriers = ["Lemo_on", "astrokurt", "BrokenSpartan23", "Davisparker8", "DunnDunnas", "fast-sparrow", "GODisAWESOME777", "Huey9670", "Lopsided-Cry5134", "NoodleShopKing", "SASCAT666", "Savvy_Untapper", "silent_neo_27", "SSD002", "Themudget", "Viking122584", "vZ_Bigboy"]
 
     while couriers:
         try:
@@ -110,7 +110,7 @@ while True:
                 lowercase_body = comment.body.lower()
 
                 if "!courier" in lowercase_body:
-                    comment.reply("u/" + str(comment.author) + " has requested a courier.\n\nSomebody from this list will message you: u/astrokurt u/BrokenSpartan23 u/Davisparker8 u/DunnDunnas u/fast-sparrow u/GODisAWESOME777 u/Huey9670 u/Lopsided-Cry5134 u/NoodleShopKing u/SASCAT666 u/Savvy_Untapper u/silent_neo_27 u/SSD002 u/Themudget u/Viking122584 u/vZ_Bigboy")
+                    comment.reply("u/" + str(comment.author) + " has requested a courier.\n\nSomebody from this list will message you: u/Lemo_on u/astrokurt u/BrokenSpartan23 u/Davisparker8 u/DunnDunnas u/fast-sparrow u/GODisAWESOME777 u/Huey9670 u/Lopsided-Cry5134 u/NoodleShopKing u/SASCAT666 u/Savvy_Untapper u/silent_neo_27 u/SSD002 u/Themudget u/Viking122584 u/vZ_Bigboy")
 
                     Thread(target=notify_couriers, args=()).start()
 
