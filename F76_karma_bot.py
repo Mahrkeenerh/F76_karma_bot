@@ -111,12 +111,12 @@ while True:
 
                 if "!courier" in lowercase_body:
                     if "xbox" in lowercase_body:
-                        couriers = "u/astrokurt u/DunnDunnas u/fast-sparrow u/GODisAWESOME777 u/Huey9670 u/Lopsided-Cry5134 u/SASCAT666 u/silent_neo_27 u/Slimematthew u/SSD002"
+                        couriers = "u/BrokenSpartan23 u/Lemo_on u/Onwardandthen u/Savvy_Untapper u/Themudget u/vZ_Bigboy"
                         comment.reply("u/" + str(comment.author) + " has requested an xbox courier.\n\nSomebody from this list will message you: " + couriers)
                         Thread(target=notify_couriers, args=(comment, couriers)).start()
 
                     if "ps" in lowercase_body:
-                        couriers = "u/BrokenSpartan23 u/Lemo_on u/Onwardandthen u/Savvy_Untapper u/Themudget u/vZ_Bigboy"
+                        couriers = "u/astrokurt u/DunnDunnas u/fast-sparrow u/GODisAWESOME777 u/Huey9670 u/Lopsided-Cry5134 u/SASCAT666 u/silent_neo_27 u/Slimematthew u/SSD002"
                         comment.reply("u/" + str(comment.author) + " has requested a ps courier.\n\nSomebody from this list will message you: " + couriers)
                         Thread(target=notify_couriers, args=(comment, couriers)).start()
 
