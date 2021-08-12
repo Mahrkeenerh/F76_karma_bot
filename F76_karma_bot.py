@@ -7,8 +7,8 @@ from prawcore import auth
 class User():
 
     def __init__(self):
-        self.trade = 0
-        self.giveaway = 0
+        self.trade = 100
+        self.giveaway = 100
         self.up_posts = {}
         self.down_posts = {}
 
@@ -74,13 +74,13 @@ def save():
 
 
 # notify all couriers
-def notify_couriers():
+def notify_couriers(comment, couriers):
 
-    couriers = ["Lemo_on", "astrokurt", "BrokenSpartan23", "Davisparker8", "DunnDunnas", "fast-sparrow", "GODisAWESOME777", "Huey9670", "Lopsided-Cry5134", "NoodleShopKing", "SASCAT666", "Savvy_Untapper", "silent_neo_27", "SSD002", "Themudget", "Viking122584", "vZ_Bigboy"]
+    couriers = couriers.split()
 
     while couriers:
         try:
-            reddit.redditor(couriers[0]).message("Courier request", "Hey, u/" + str(comment.author) + " has requested a courier.\n\nLink to comment: " + comment.permalink + "\n\nIf you decide to take it on, please claim it by commenting under their request.")
+            reddit.redditor(couriers[0]).message("Courier request", "Hey, " + str(comment.author) + " has requested a courier.\n\nLink to comment: " + comment.permalink + "\n\nIf you decide to take it on, please claim it by commenting under their request.")
             del couriers[0]
 
         except:
@@ -106,13 +106,24 @@ while True:
             comment_time = datetime.datetime.fromtimestamp(comment.created_utc)
 
             # only check new posts
-            if comment_time > start_time:
+            if comment_time > start_time and comment.author.lower() != "f76_karma_bot":
                 lowercase_body = comment.body.lower()
 
                 if "!courier" in lowercase_body:
-                    comment.reply("u/" + str(comment.author) + " has requested a courier.\n\nSomebody from this list will message you: u/Lemo_on u/astrokurt u/BrokenSpartan23 u/Davisparker8 u/DunnDunnas u/fast-sparrow u/GODisAWESOME777 u/Huey9670 u/Lopsided-Cry5134 u/NoodleShopKing u/SASCAT666 u/Savvy_Untapper u/silent_neo_27 u/SSD002 u/Themudget u/Viking122584 u/vZ_Bigboy")
+                    if "xbox" in lowercase_body:
+                        couriers = "u/astrokurt u/DunnDunnas u/fast-sparrow u/GODisAWESOME777 u/Huey9670 u/Lopsided-Cry5134 u/SASCAT666 u/silent_neo_27 u/Slimematthew u/SSD002"
+                        comment.reply("u/" + str(comment.author) + " has requested an xbox courier.\n\nSomebody from this list will message you: " + couriers)
+                        Thread(target=notify_couriers, args=(comment, couriers)).start()
 
-                    Thread(target=notify_couriers, args=()).start()
+                    if "ps" in lowercase_body:
+                        couriers = "u/BrokenSpartan23 u/Lemo_on u/Onwardandthen u/Savvy_Untapper u/Themudget u/vZ_Bigboy"
+                        comment.reply("u/" + str(comment.author) + " has requested a ps courier.\n\nSomebody from this list will message you: " + couriers)
+                        Thread(target=notify_couriers, args=(comment, couriers)).start()
+
+                    if "xbox" not in lowercase_body and "ps" not in lowercase_body:
+                        couriers = "u/astrokurt u/DunnDunnas u/fast-sparrow u/GODisAWESOME777 u/Huey9670 u/Lopsided-Cry5134 u/SASCAT666 u/silent_neo_27 u/Slimematthew u/SSD002 u/BrokenSpartan23 u/Lemo_on u/Onwardandthen u/Savvy_Untapper u/Themudget u/vZ_Bigboy"
+                        comment.reply("u/" + str(comment.author) + " has requested a courier.\n\nSomebody from this list will message you: " + couriers)
+                        Thread(target=notify_couriers, args=(comment, couriers)).start()
 
                 if "u/" in lowercase_body:
                     target = get_target(lowercase_body)
