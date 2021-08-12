@@ -106,7 +106,7 @@ while True:
             comment_time = datetime.datetime.fromtimestamp(comment.created_utc)
 
             # only check new posts
-            if comment_time > start_time and comment.author.lower() != "f76_karma_bot":
+            if comment_time > start_time and str(comment.author).lower() != "f76_karma_bot":
                 lowercase_body = comment.body.lower()
 
                 if "!courier" in lowercase_body:
