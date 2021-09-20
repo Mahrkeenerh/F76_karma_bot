@@ -109,21 +109,21 @@ while True:
             if comment_time > start_time and str(comment.author).lower() != "f76_karma_bot":
                 lowercase_body = comment.body.lower()
 
+                x_couriers = "u/Savvy_Untapper u/vZ_Bigboy u/Lopsided-Cry5134"
+                p_couriers = "u/astrokurt u/Huey9670 u/Lopsided-Cry5134 u/Slimematthew u/lndigoRed"
+
                 if "!courier" in lowercase_body:
                     if "xbox" in lowercase_body:
-                        couriers = "u/BrokenSpartan23 u/Lemo_on u/Onwardandthen u/Savvy_Untapper u/Themudget u/vZ_Bigboy u/No_Wear3716"
-                        comment.reply("u/" + str(comment.author) + " has requested an xbox courier.\n\nSomebody from this list will message you: " + couriers)
-                        Thread(target=notify_couriers, args=(comment, couriers)).start()
+                        comment.reply("u/" + str(comment.author) + " has requested an xbox courier.\n\nSomebody from this list will message you: " + x_couriers)
+                        Thread(target=notify_couriers, args=(comment, x_couriers)).start()
 
                     if "ps" in lowercase_body:
-                        couriers = "u/astrokurt u/DunnDunnas u/fast-sparrow u/GODisAWESOME777 u/Huey9670 u/Lopsided-Cry5134 u/SASCAT666 u/silent_neo_27 u/Slimematthew u/SSD002"
-                        comment.reply("u/" + str(comment.author) + " has requested a ps courier.\n\nSomebody from this list will message you: " + couriers)
-                        Thread(target=notify_couriers, args=(comment, couriers)).start()
+                        comment.reply("u/" + str(comment.author) + " has requested a ps courier.\n\nSomebody from this list will message you: " + p_couriers)
+                        Thread(target=notify_couriers, args=(comment, p_couriers)).start()
 
                     if "xbox" not in lowercase_body and "ps" not in lowercase_body:
-                        couriers = "u/astrokurt u/DunnDunnas u/fast-sparrow u/GODisAWESOME777 u/Huey9670 u/Lopsided-Cry5134 u/SASCAT666 u/silent_neo_27 u/Slimematthew u/SSD002 u/BrokenSpartan23 u/Lemo_on u/Onwardandthen u/Savvy_Untapper u/Themudget u/vZ_Bigboy u/No_Wear3716"
-                        comment.reply("u/" + str(comment.author) + " has requested a courier.\n\nSomebody from this list will message you: " + couriers)
-                        Thread(target=notify_couriers, args=(comment, couriers)).start()
+                        comment.reply("u/" + str(comment.author) + " has requested a courier.\n\nSomebody from this list will message you: " + x_couriers + " " + p_couriers)
+                        Thread(target=notify_couriers, args=(comment, x_couriers + " " + p_couriers)).start()
 
                 if "u/" in lowercase_body:
                     target = get_target(lowercase_body)
