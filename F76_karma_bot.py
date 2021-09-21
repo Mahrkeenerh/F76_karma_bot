@@ -110,7 +110,7 @@ while True:
                 lowercase_body = comment.body.lower()
 
                 x_couriers = "u/Savvy_Untapper u/vZ_Bigboy u/Lopsided-Cry5134"
-                p_couriers = "u/astrokurt u/Huey9670 u/Lopsided-Cry5134 u/Slimematthew u/lndigoRed"
+                p_couriers = "u/astrokurt u/Huey9670 u/Lopsided-Cry5134 u/Slimematthew u/lndigoRed u/Pfsone"
 
                 if "!courier" in lowercase_body:
                     if "xbox" in lowercase_body:
@@ -120,10 +120,6 @@ while True:
                     if "ps" in lowercase_body:
                         comment.reply("u/" + str(comment.author) + " has requested a ps courier.\n\nSomebody from this list will message you: " + p_couriers)
                         Thread(target=notify_couriers, args=(comment, p_couriers)).start()
-
-                    if "xbox" not in lowercase_body and "ps" not in lowercase_body:
-                        comment.reply("u/" + str(comment.author) + " has requested a courier.\n\nSomebody from this list will message you: " + x_couriers + " " + p_couriers)
-                        Thread(target=notify_couriers, args=(comment, x_couriers + " " + p_couriers)).start()
 
                 if "u/" in lowercase_body:
                     target = get_target(lowercase_body)
