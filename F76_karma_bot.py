@@ -144,9 +144,9 @@ while True:
                         if post_id not in record[author].up_posts:
                             record[author].up_posts[post_id] = []
 
-                        if target in record[author].up_posts[post_id]:
-                            comment.reply("You can only add karma to one user under one post once.")
-                            continue
+                        # if target in record[author].up_posts[post_id]:
+                        #     comment.reply("You can only add karma to one user under one post once.")
+                        #     continue
 
                         if "+trade" in lowercase_body:
                             record[target].trade += 1
@@ -164,9 +164,9 @@ while True:
                         if post_id not in record[author].down_posts:
                             record[author].down_posts[post_id] = []
 
-                        if target in record[author].down_posts[post_id]:
-                            comment.reply("You can only subtract karma from one user under one post once.")
-                            continue
+                        # if target in record[author].down_posts[post_id]:
+                        #     comment.reply("You can only subtract karma from one user under one post once.")
+                        #     continue
 
                         if "-trade" in lowercase_body:
                             record[target].trade -= 1
