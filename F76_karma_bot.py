@@ -110,7 +110,7 @@ while True:
                 lowercase_body = comment.body.lower()
 
                 x_couriers = "u/Savvy_Untapper u/vZ_Bigboy u/Lopsided-Cry5134"
-                p_couriers = "u/astrokurt u/Huey9670 u/Lopsided-Cry5134 u/Slimematthew u/lndigoRed u/Pfsone"
+                p_couriers = "u/astrokurt u/Huey9670 u/Lopsided-Cry5134 u/Pfsone u/Alferio420 https://www.facebook.com/groups/250431486153376/?ref=share"
 
                 if "!courier" in lowercase_body:
                     if "xbox" in lowercase_body:
